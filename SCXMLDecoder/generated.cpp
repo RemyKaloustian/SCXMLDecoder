@@ -19,7 +19,7 @@ void InState2()
 State currentState = State_1;
 int activate(State newState)
 { 
-	bla
+	switch
 }
 
 
