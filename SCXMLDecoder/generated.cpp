@@ -1,8 +1,30 @@
 #include <iostream> 
 
-enum State{ State_1State_2};
-int main()
-{
-	cout<<hello peasants 
+enum State{ State_1, State_2};
+
+
+void InState1()
+{ 
+	cout<<" InState1" << "\n";
 
 }
+
+
+void InState2()
+{ 
+	cout<<" InState2" << "\n";
+
+}
+
+State currentState = State_1;
+int activate(State newState)
+{ 
+	bla
+}
+
+
+int main()
+{ 
+	cout << "Hello peasants\n ";
+}
+

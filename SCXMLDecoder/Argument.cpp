@@ -2,10 +2,6 @@
 
 
 
-Argument::Argument()
-{
-}
-
 
 Argument::Argument(string type, string name):_type(type),_name(name)
 {
