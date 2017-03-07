@@ -63,9 +63,13 @@ void WriteEnum(string name, vector<string> values)
 	WriteInFile( "};\n\n");
 }
 
-void WriteInitialization(string varname, string value, string type = "")
+void WriteInitialization(string varname, string value, bool newline, string type = "")
 {
-	WriteInFile(type + " " + varname + " = " + value + ";");
+	if(newline)
+		WriteInFile(type + " " + varname + " = " + value + ";\n");
+	else
+		WriteInFile(type + " " + varname + " = " + value + ";");
+
 }
 
 vector<string> get_states_names(vector<MachineState> states)
@@ -132,7 +136,7 @@ int main()
 	initial = root_node->first_attribute("initial")->value();
 
 	//getting teh final state
-	final = root_node->first_node("final")->first_attribute("id")->value();
+	//final = root_node->first_node("final")->first_attribute("id")->value();
 
 #pragma endregion DATASEARCH
 	
@@ -147,10 +151,10 @@ int main()
 	for (unsigned i = 0; i < states.size() ; ++i)
 	{
 		//Use codeline, function use a list of codelines
-		WriteFunction(states[i]._action, "cout<<\" " + states[i]._action + "\" << \"\\n\";\n");
+		WriteFunction("In"+states[i]._name, "cout<<\" " + states[i]._action + "\" << \"\\n\";\n");
 	}
 
-	WriteInitialization("currentState", initial, "State");
+	WriteInitialization("currentState", initial,true, "State");
 
 	vector<Argument> activateArgs;
 	activateArgs.push_back(Argument("State", "newState"));

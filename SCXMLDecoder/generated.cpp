@@ -1,38 +1,39 @@
 #include <iostream> 
 
-enum State{ State_1, State_2};
+enum State{ Idle, Rolling};
 
 
-void InState1()
+void InIdle()
 { 
-	cout<<" InState1" << "\n";
+	cout<<" InIdle" << "\n";
 
 }
 
 
-void InState2()
+void InRolling()
 { 
-	cout<<" InState2" << "\n";
+	cout<<" InRolling" << "\n";
 
 }
 
 State currentState = State_1;
+
 int activate(State newState)
 { 
 	switch(newState){ 
-	 case State_1:
-		 if (newState == State_2){
-			 InState_2();
-		 	 currentState = State_2;
-			 std::cout<<"enter  State_2"<<std::endl;
+	 case Idle:
+		 if (newState == Rolling){
+			 InRolling();
+		 	 currentState = Rolling;
+			 std::cout<<"enter  Rolling"<<std::endl;
 		}
 		break;
 	}
-	 case State_2:
-		 if (newState == Final_1){
-			 InFinal_1();
-		 	 currentState = Final_1;
-			 std::cout<<"enter  Final_1"<<std::endl;
+	 case Rolling:
+		 if (newState == Idle){
+			 InIdle();
+		 	 currentState = Idle;
+			 std::cout<<"enter  Idle"<<std::endl;
 		}
 		break;
 	}

@@ -18,8 +18,10 @@ string CodeSwitch::to_string()
 	string switch_content = "";
 
 	switch_content += "switch(newState){ \n";
+
 		for (MachineState s : _states)
 		{
+			if(s._next.find("Final") == string::npos)
 			switch_content += "\t case " + s._name + ":\n" +
 				"\t\t if (newState == " + s._next + "){\n"
 				+ "\t\t\t In" + s._next + "();\n" +
