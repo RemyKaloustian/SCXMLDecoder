@@ -15,5 +15,23 @@ CodeSwitch::~CodeSwitch()
 
 string CodeSwitch::to_string()
 {
-	return "switch";
+	string switch_content = "";
+
+	switch_content += "switch(newState){ \n";
+		for (MachineState s : _states)
+		{
+			switch_content += "\t case " + s._name + ":\n" +
+				"\t\t if (newState == " + s._next + "){\n"
+				+ "\t\t\t In" + s._next + "();\n" +
+				"\t\t \t currentState = " + s._next + ";\n" +
+				"\t\t\t std::cout<<\"enter  " + s._next + "\"<<std::endl;\n" +
+				"\t\t}\n\t\tbreak;\n" +
+				"\t}\n";
+				
+			
+		}
+		
+
+
+	return switch_content;
 }
