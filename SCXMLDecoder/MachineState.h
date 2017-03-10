@@ -10,7 +10,8 @@ public:
 	string _name;
 	string _next;
 	string _action;
-	MachineState(string name, string next, string action);
+	string _delay;
+	MachineState(string name, string next, string action, string delay = "");
 	~MachineState();
 };
 

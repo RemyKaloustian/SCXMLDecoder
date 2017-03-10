@@ -21,16 +21,24 @@ string CodeSwitch::to_string()
 
 		for (MachineState s : _states)
 		{
-			if(s._next.find("Final") == string::npos)
-			switch_content += "\t case " + s._name + ":\n" +
-				"\t\t if (newState == " + s._next + "){\n"
-				+ "\t\t\t In" + s._next + "();\n" +
-				"\t\t \t currentState = " + s._next + ";\n" +
-				"\t\t\t std::cout<<\"enter  " + s._next + "\"<<std::endl;\n" +
-				"\t\t}\n\t\tbreak;\n" +
-				"\t}\n";
-				
-			
+			//WHY ?????
+			if (s._next.find("Final") == string::npos)
+			{
+				switch_content += "\t case " + s._name + ":\n" +
+					"\t\t if (newState == " + s._next + "){\n";
+
+				if (s._delay != "")
+				{
+					switch_content += "\t\t\t sleep_for(seconds(" + s._delay + "));\n";
+				}
+
+
+				switch_content += "\t\t\t In" + s._next + "();\n" +
+					"\t\t \t currentState = " + s._next + ";\n" +
+					"\t\t\t std::cout<<\"enter  " + s._next + "\"<<std::endl;\n" +
+					"\t\t}\n\t\tbreak;\n" +
+					"\t}\n";
+			}
 		}
 		
 

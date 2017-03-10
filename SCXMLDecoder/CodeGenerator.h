@@ -24,6 +24,8 @@ public:
 	~CodeGenerator();
 
 	void WriteInFile(string content);
+
+	void WriteIncludes(vector<MachineState>);
 	
 	void WriteFunction(string name, string body, string return_t = "void", const vector<Argument> arguments = vector<Argument>());
 	

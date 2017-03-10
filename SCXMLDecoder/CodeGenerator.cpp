@@ -45,9 +45,17 @@ CodeGenerator::CodeGenerator(string fileToParse)
 		string id = tmp_node->first_attribute("id")->value();
 		string next = tmp_node->first_node("transition")->first_attribute("target")->value();
 		string action = tmp_node->first_node("onentry")->first_node("send")->first_attribute("event")->value();
+		string delay;
+		if (tmp_node->first_node("onentry")->first_node("send")->first_attribute("delay") != nullptr)
+		{
+			 delay = tmp_node->first_node("onentry")->first_node("send")->first_attribute("delay")->value();
+			 states.push_back(MachineState(id, next, action, delay));
 
-		states.push_back(MachineState(id, next, action));
-
+		}
+		else
+		{
+			states.push_back(MachineState(id, next, action));
+		}
 		cout << "\n Would create a state with : name = " << id << " || next = " << next << "  ||  action = " << action << "\n";
 
 	}
@@ -67,11 +75,7 @@ CodeGenerator::CodeGenerator(string fileToParse)
 
 
 
-	///VALIDATED
-	WriteInFile("#include <iostream> \n\n");
-	WriteInFile("using  namespace std; \n\n");
-
-
+	WriteIncludes(states);
 
 	WriteEnum("State", get_states_names(states));
 	for (unsigned i = 0; i < states.size(); ++i)
@@ -82,16 +86,13 @@ CodeGenerator::CodeGenerator(string fileToParse)
 
 	WriteInitialization("currentState", initial, true, "State");
 
+
+	//USEFUL ????
 	vector<Argument> activateArgs;
 	activateArgs.push_back(Argument("State", "newState"));
 
-
-	vector<CodeCase> caseList;
-
 	CodeSwitch activateSwitch("currentState", states);
 	WriteFunction("activate", activateSwitch.to_string(), "int", activateArgs);
-
-
 
 	WriteFunction("main", "cout << \"Hello boiz\\n \";", "int");
 
@@ -99,12 +100,7 @@ CodeGenerator::CodeGenerator(string fileToParse)
 
 
 CodeGenerator::~CodeGenerator()
-{
-
-	
-
-
-}
+{}
 
 
 void CodeGenerator::WriteInFile( string content)
@@ -114,6 +110,25 @@ void CodeGenerator::WriteInFile( string content)
 	myfile.close();*/
 
 	_content += content;
+}
+
+void CodeGenerator::WriteIncludes(vector<MachineState> states)
+{
+	WriteInFile("#include <iostream> \n");
+	bool hasDelay = false;
+	for (MachineState s : states)
+	{
+		if (s._delay != "")
+			hasDelay = true;
+	}
+
+	if (hasDelay)
+	{
+		WriteInFile("#include <chrono> //c++ 11\n");
+		WriteInFile("#include <thread> //c++ 11\n");
+	}
+
+	WriteInFile("using  namespace std; \n\n");
 }
 
 void CodeGenerator::WriteFunction( string name, string body, string return_t , const vector<Argument> arguments)
