@@ -144,6 +144,7 @@
   <ItemGroup>
     <ClCompile Include="Argument.cpp" />
     <ClCompile Include="CodeCase.cpp" />
+    <ClCompile Include="CodeGenerator.cpp" />
     <ClCompile Include="CodeLine.cpp" />
     <ClCompile Include="CodeSwitch.cpp" />
     <ClCompile Include="MachineState.cpp" />
@@ -152,6 +153,7 @@
   <ItemGroup>
     <ClInclude Include="Argument.h" />
     <ClInclude Include="CodeCase.h" />
+    <ClInclude Include="CodeGenerator.h" />
     <ClInclude Include="CodeLine.h" />
     <ClInclude Include="CodeSwitch.h" />
     <ClInclude Include="MachineState.h" />
