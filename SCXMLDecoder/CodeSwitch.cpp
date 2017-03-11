@@ -21,7 +21,7 @@ string CodeSwitch::to_string()
 
 		for (MachineState s : _states)
 		{
-			//WHY ?????
+			//If the next state is the not the final point
 			if (s._next.find("Final") == string::npos)
 			{
 				switch_content += "\t case " + s._name + ":\n" +

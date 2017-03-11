@@ -25,6 +25,12 @@ int main()
 	outputFile << basic_content;
 	outputFile.close();
 
+	string advanced_content = CodeGenerator("AdvancedExample.scxml")._content;
+	ofstream outputFileAdvanced;
+	outputFileAdvanced.open("generated_advanced.cpp");
+	outputFileAdvanced << advanced_content;
+	outputFileAdvanced.close();
+
 	return 0;
 }
 
