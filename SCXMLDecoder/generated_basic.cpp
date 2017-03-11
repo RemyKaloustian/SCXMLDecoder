@@ -29,7 +29,7 @@ int activate(State newState)
 			 std::cout<<"enter  Rolling"<<std::endl;
 		}
 		break;
-	}
+	
 	 case Rolling:
 		 if (newState == Idle){
 			 InIdle();
@@ -37,13 +37,15 @@ int activate(State newState)
 			 std::cout<<"enter  Idle"<<std::endl;
 		}
 		break;
-	}
+	
 
 }
 
 
 int main()
 { 
-	cout << "Hello boiz\n ";
+	activate(Rolling);
+	activate(Idle);
+	
 }
 

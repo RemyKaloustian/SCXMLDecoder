@@ -38,7 +38,7 @@ int activate(State newState)
 			 std::cout<<"enter  Rolling"<<std::endl;
 		}
 		break;
-	}
+	
 	 case Idle:
 		 if (newState == Looping){
 			 InLooping();
@@ -46,7 +46,7 @@ int activate(State newState)
 			 std::cout<<"enter  Looping"<<std::endl;
 		}
 		break;
-	}
+	
 	 case Rolling:
 		 if (newState == Idle){
 			 InIdle();
@@ -54,7 +54,7 @@ int activate(State newState)
 			 std::cout<<"enter  Idle"<<std::endl;
 		}
 		break;
-	}
+	
 	 case Looping:
 		 if (newState == Idle){
 			 sleep_for(seconds(3));
@@ -63,13 +63,17 @@ int activate(State newState)
 			 std::cout<<"enter  Idle"<<std::endl;
 		}
 		break;
-	}
+	
 
 }
 
 
 int main()
 { 
-	cout << "Hello boiz\n ";
+	activate(Rolling);
+	activate(Looping);
+	activate(Idle);
+	activate(Idle);
+	
 }
 

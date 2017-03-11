@@ -119,7 +119,17 @@ CodeGenerator::CodeGenerator(string fileToParse)
 	CodeSwitch activateSwitch("currentState", states);
 	WriteFunction("activate", activateSwitch.to_string(), "int", activateArgs);
 
-	WriteFunction("main", "cout << \"Hello boiz\\n \";", "int");
+	string main_content= "";
+
+	for (MachineState s : states)
+	{
+		for (string next : s._nextList)
+		{
+			main_content += "activate(" + next + ");\n\t";
+		}
+	}
+
+	WriteFunction("main", main_content, "int");
 
 }
 

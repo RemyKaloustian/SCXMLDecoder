@@ -40,7 +40,7 @@ string CodeSwitch::to_string()
 					"\t\t \t currentState = " + next + ";\n" +
 					"\t\t\t std::cout<<\"enter  " + next + "\"<<std::endl;\n" +
 					"\t\t}\n\t\tbreak;\n" +
-					"\t}\n";
+					"\t\n";
 			}
 		}
 		
