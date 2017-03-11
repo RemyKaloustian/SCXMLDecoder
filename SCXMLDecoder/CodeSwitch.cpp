@@ -21,11 +21,14 @@ string CodeSwitch::to_string()
 
 		for (MachineState s : _states)
 		{
+			//for each next
 			//If the next state is the not the final point
-			if (s._next.find("Final") == string::npos)
+			for(string next : s._nextList)
+			if (next.find("Final") == string::npos)
 			{
+				
 				switch_content += "\t case " + s._name + ":\n" +
-					"\t\t if (newState == " + s._next + "){\n";
+					"\t\t if (newState == " + next + "){\n";
 
 				if (s._delay != "")
 				{
@@ -33,9 +36,9 @@ string CodeSwitch::to_string()
 				}
 
 
-				switch_content += "\t\t\t In" + s._next + "();\n" +
-					"\t\t \t currentState = " + s._next + ";\n" +
-					"\t\t\t std::cout<<\"enter  " + s._next + "\"<<std::endl;\n" +
+				switch_content += "\t\t\t In" + next + "();\n" +
+					"\t\t \t currentState = " + next + ";\n" +
+					"\t\t\t std::cout<<\"enter  " + next + "\"<<std::endl;\n" +
 					"\t\t}\n\t\tbreak;\n" +
 					"\t}\n";
 			}

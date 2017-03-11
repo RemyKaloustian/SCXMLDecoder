@@ -39,6 +39,14 @@ int activate(State newState)
 		}
 		break;
 	}
+	 case Idle:
+		 if (newState == Looping){
+			 InLooping();
+		 	 currentState = Looping;
+			 std::cout<<"enter  Looping"<<std::endl;
+		}
+		break;
+	}
 	 case Rolling:
 		 if (newState == Idle){
 			 InIdle();

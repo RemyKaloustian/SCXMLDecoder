@@ -40,23 +40,48 @@ CodeGenerator::CodeGenerator(string fileToParse)
 
 #pragma region DATASEARCH
 	//Getting the states
-	for (xml_node<> * tmp_node = root_node->first_node("state"); tmp_node; tmp_node = tmp_node->next_sibling()) {
+	for (xml_node<> * tmp_node = root_node->first_node("state"); tmp_node; tmp_node = tmp_node->next_sibling()) 
+	{
 		//state_list.push_back(tmp_node->first_attribute("id")->value());
 		string id = tmp_node->first_attribute("id")->value();
-		string next = tmp_node->first_node("transition")->first_attribute("target")->value();
+
+		vector<string> nextList;
+
+		for (xml_node<> * trans_node = tmp_node->first_node("transition"); trans_node; trans_node = trans_node->next_sibling()) 
+		{
+			if (trans_node->first_attribute("target") != nullptr)
+			{
+				nextList.push_back(trans_node->first_attribute("target")->value());
+				cout << "id =" << id << "  , The target is  " << trans_node->first_attribute("target")->value();
+			}
+			
+		}
+		//string next = tmp_node->first_node("transition")->first_attribute("target")->value();
 		string action = tmp_node->first_node("onentry")->first_node("send")->first_attribute("event")->value();
 		string delay;
 		if (tmp_node->first_node("onentry")->first_node("send")->first_attribute("delay") != nullptr)
 		{
 			 delay = tmp_node->first_node("onentry")->first_node("send")->first_attribute("delay")->value();
-			 states.push_back(MachineState(id, next, action, delay));
+			 states.push_back(MachineState(id, nextList, action, delay));
+
+			 cout << "\nCreating a state with \n " << id << "\n action = " << action << "\n nextlist : ";
+			 for (string n : nextList)
+			 {
+				 cout << n << ", ";
+			 }
+
 
 		}
 		else
 		{
-			states.push_back(MachineState(id, next, action));
+			states.push_back(MachineState(id, nextList, action));
+
+			cout << "\nCreating a state with \n " << id << "\n action = " << action << "\n nextlist : ";
+			for (string n : nextList)
+			{
+				cout << n << ", ";
+			}
 		}
-		cout << "\n Would create a state with : name = " << id << " || next = " << next << "  ||  action = " << action << "\n";
 
 	}
 
