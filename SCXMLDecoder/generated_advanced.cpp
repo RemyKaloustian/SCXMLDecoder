@@ -3,7 +3,7 @@
 #include <thread> //c++ 11
 using  namespace std; 
 
-enum State{ Idle, Rolling, Looping};
+enum State{ Idle= 0, Rolling= 1, Looping= 2};
 
 
 void InIdle()
@@ -30,40 +30,41 @@ State currentState = Idle;
 
 int activate(State newState)
 { 
-	switch(newState){ 
+	switch(currentState){ 
 	 case Idle:
 		 if (newState == Rolling){
+			 std::cout<<"enter  Rolling"<<std::endl;
 			 InRolling();
 		 	 currentState = Rolling;
-			 std::cout<<"enter  Rolling"<<std::endl;
 		}
 		break;
 	
 	 case Idle:
 		 if (newState == Looping){
+			 std::cout<<"enter  Looping"<<std::endl;
 			 InLooping();
 		 	 currentState = Looping;
-			 std::cout<<"enter  Looping"<<std::endl;
 		}
 		break;
 	
 	 case Rolling:
 		 if (newState == Idle){
+			 std::cout<<"enter  Idle"<<std::endl;
 			 InIdle();
 		 	 currentState = Idle;
-			 std::cout<<"enter  Idle"<<std::endl;
 		}
 		break;
 	
 	 case Looping:
 		 if (newState == Idle){
 			 sleep_for(seconds(3));
+			 std::cout<<"enter  Idle"<<std::endl;
 			 InIdle();
 		 	 currentState = Idle;
-			 std::cout<<"enter  Idle"<<std::endl;
 		}
 		break;
 	
+	}
 
 }
 

@@ -21,7 +21,7 @@ int main()
 	//cout << basic_content;
 
 	ofstream outputFile;
-	outputFile.open("generated_basic.cpp");
+	outputFile.open("generated_basic.h");
 	outputFile << basic_content;
 	outputFile.close();
 
@@ -29,7 +29,7 @@ int main()
 
 	string advanced_content = CodeGenerator("AdvancedExample.scxml")._content;
 	ofstream outputFileAdvanced;
-	outputFileAdvanced.open("generated_advanced.cpp");
+	outputFileAdvanced.open("generated_advanced.h");
 	outputFileAdvanced << advanced_content;
 	outputFileAdvanced.close();
 

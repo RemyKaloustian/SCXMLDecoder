@@ -105,7 +105,6 @@ CodeGenerator::CodeGenerator(string fileToParse)
 	WriteEnum("State", get_states_names(states));
 	for (unsigned i = 0; i < states.size(); ++i)
 	{
-		//Use codeline, function use a list of codelines
 		WriteFunction("In" + states[i]._name, "cout<<\" " + states[i]._action + "\" << \"\\n\";\n");
 	}
 
@@ -119,6 +118,10 @@ CodeGenerator::CodeGenerator(string fileToParse)
 	CodeSwitch activateSwitch("currentState", states);
 	WriteFunction("activate", activateSwitch.to_string(), "int", activateArgs);
 
+
+
+	//WRITING THE MAIN
+
 	string main_content= "";
 
 	for (MachineState s : states)
@@ -129,7 +132,7 @@ CodeGenerator::CodeGenerator(string fileToParse)
 		}
 	}
 
-	WriteFunction("main", main_content, "int");
+	//WriteFunction("main", main_content, "int");
 
 }
 
@@ -194,9 +197,9 @@ void CodeGenerator::WriteEnum(string name, vector<string> values)
 
 	for(unsigned i = 0; i< values.size() -1; ++i)
 	{
-		WriteInFile( values[i] + ", ");
+		WriteInFile( values[i] + "= " + to_string(i)+", ");
 	}
-	WriteInFile( values[values.size()-1]);
+	WriteInFile( values[values.size()-1] + "= " + to_string(values.size()-1));
 
 	WriteInFile( "};\n\n");
 }

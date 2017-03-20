@@ -17,7 +17,7 @@ string CodeSwitch::to_string()
 {
 	string switch_content = "";
 
-	switch_content += "switch(newState){ \n";
+	switch_content += "switch(currentState){ \n";
 
 		for (MachineState s : _states)
 		{
@@ -36,13 +36,15 @@ string CodeSwitch::to_string()
 				}
 
 
-				switch_content += "\t\t\t In" + next + "();\n" +
-					"\t\t \t currentState = " + next + ";\n" +
-					"\t\t\t std::cout<<\"enter  " + next + "\"<<std::endl;\n" +
+
+				switch_content += "\t\t\t std::cout<<\"enter  " + next + "\"<<std::endl;\n" + 
+					"\t\t\t In" + next + "();\n" +
+					"\t\t \t currentState = " + next + ";\n" +					
 					"\t\t}\n\t\tbreak;\n" +
 					"\t\n";
 			}
 		}
+		switch_content += "\t}\n";
 		
 
 
