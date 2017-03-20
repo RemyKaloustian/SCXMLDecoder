@@ -1,6 +1,10 @@
+#pragma once 
 #include <iostream> 
 #include <chrono> //c++ 11
 #include <thread> //c++ 11
+
+using std::chrono::seconds;
+using std::this_thread::sleep_for;
 using  namespace std; 
 
 enum State{ Idle= 0, Rolling= 1, Looping= 2};

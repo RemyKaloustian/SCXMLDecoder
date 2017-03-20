@@ -152,7 +152,7 @@ void CodeGenerator::WriteInFile( string content)
 
 void CodeGenerator::WriteIncludes(vector<MachineState> states)
 {
-	WriteInFile("#include <iostream> \n");
+	WriteInFile("#pragma once \n#include <iostream> \n");
 	bool hasDelay = false;
 	for (MachineState s : states)
 	{
@@ -164,6 +164,10 @@ void CodeGenerator::WriteIncludes(vector<MachineState> states)
 	{
 		WriteInFile("#include <chrono> //c++ 11\n");
 		WriteInFile("#include <thread> //c++ 11\n");
+		WriteInFile("\nusing std::chrono::seconds;\n");
+		WriteInFile("using std::this_thread::sleep_for;\n");
+
+		
 	}
 
 	WriteInFile("using  namespace std; \n\n");
