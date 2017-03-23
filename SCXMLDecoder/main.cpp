@@ -17,13 +17,21 @@ using namespace std;
 int main()
 {
 
-	string basic_content = CodeGenerator("BasicExample.scxml")._content;
+	CodeGenerator CG("BasicExample.scxml");
+	string basic_content = CG._content;
 	//cout << basic_content;
+
+	string main_content = CG._main_content;
 
 	ofstream outputFile;
 	outputFile.open("generated_basic.h");
 	outputFile << basic_content;
 	outputFile.close();
+
+	ofstream outputFileMain;
+	outputFileMain.open("main_basic.cpp");
+	outputFileMain << main_content;
+	outputFileMain.close();
 
 	cout << "\n\n ----------------------------------------------------\n\n";
 

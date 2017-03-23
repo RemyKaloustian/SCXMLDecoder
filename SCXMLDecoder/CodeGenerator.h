@@ -19,19 +19,20 @@ class CodeGenerator
 public:
 
 	string _content;
+	string _main_content;
 	
 	CodeGenerator(string fileToParse);
 	~CodeGenerator();
 
-	void WriteInFile(string content);
+	void WriteInFile(string content, string & target);
 
-	void WriteIncludes(vector<MachineState>);
+	void WriteIncludes(vector<MachineState>, string& target);
 	
-	void WriteFunction(string name, string body, string return_t = "void", const vector<Argument> arguments = vector<Argument>());
+	void WriteFunction(string name, string body,string& target, string return_t = "void", const vector<Argument> arguments = vector<Argument>());
 	
-	void WriteEnum(string name, vector<string> values);
+	void WriteEnum(string name,string& target, vector<string> values);
 
-	void WriteInitialization(string varname, string value, bool newline, string type = "");
+	void WriteInitialization(string varname, string value, bool newline,string& target, string type = "");
 	
 	vector<string> get_states_names(vector<MachineState> states);
 	

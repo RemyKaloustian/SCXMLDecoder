@@ -29,16 +29,16 @@ int activate(State newState)
 			 InRolling();
 		 	 currentState = Rolling;
 		}
+		
 		break;
-	
 	 case Rolling:
 		 if (newState == Idle){
 			 std::cout<<"enter  Idle"<<std::endl;
 			 InIdle();
 		 	 currentState = Idle;
 		}
+		
 		break;
-	
 	}
 
 }

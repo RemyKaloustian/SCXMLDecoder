@@ -52,7 +52,7 @@ CodeGenerator::CodeGenerator(string fileToParse)
 			if (trans_node->first_attribute("target") != nullptr)
 			{
 				nextList.push_back(trans_node->first_attribute("target")->value());
-				cout << "id =" << id << "  , The target is  " << trans_node->first_attribute("target")->value();
+				//cout << "id =" << id << "  , The target is  " << trans_node->first_attribute("target")->value();
 			}
 			
 		}
@@ -64,10 +64,10 @@ CodeGenerator::CodeGenerator(string fileToParse)
 			 delay = tmp_node->first_node("onentry")->first_node("send")->first_attribute("delay")->value();
 			 states.push_back(MachineState(id, nextList, action, delay));
 
-			 cout << "\nCreating a state with \n " << id << "\n action = " << action << "\n nextlist : ";
+			 //cout << "\nCreating a state with \n " << id << "\n action = " << action << "\n nextlist : ";
 			 for (string n : nextList)
 			 {
-				 cout << n << ", ";
+				 //cout << n << ", ";
 			 }
 
 
@@ -76,10 +76,10 @@ CodeGenerator::CodeGenerator(string fileToParse)
 		{
 			states.push_back(MachineState(id, nextList, action));
 
-			cout << "\nCreating a state with \n " << id << "\n action = " << action << "\n nextlist : ";
+			//cout << "\nCreating a state with \n " << id << "\n action = " << action << "\n nextlist : ";
 			for (string n : nextList)
 			{
-				cout << n << ", ";
+				//cout << n << ", ";
 			}
 		}
 
@@ -100,15 +100,16 @@ CodeGenerator::CodeGenerator(string fileToParse)
 
 
 
-	WriteIncludes(states);
+	WriteIncludes(states,_content);
 
-	WriteEnum("State", get_states_names(states));
+	WriteEnum("State",_content, get_states_names(states));
 	for (unsigned i = 0; i < states.size(); ++i)
 	{
-		WriteFunction("In" + states[i]._name, "cout<<\" " + states[i]._action + "\" << \"\\n\";\n");
+		cout << "\nWritting function " << states[i]._name, _content;
+		WriteFunction("In" + states[i]._name, "cout<<\" " + states[i]._action + "\" << \"\\n\";\n",_content);
 	}
 
-	WriteInitialization("currentState", initial, true, "State");
+	WriteInitialization("currentState", initial, true,_content, "State");
 
 
 	//USEFUL ????
@@ -116,7 +117,7 @@ CodeGenerator::CodeGenerator(string fileToParse)
 	activateArgs.push_back(Argument("State", "newState"));
 
 	CodeSwitch activateSwitch("currentState", states);
-	WriteFunction("activate", activateSwitch.to_string(), "int", activateArgs);
+	WriteFunction("activate", activateSwitch.to_string(),_content, "int", activateArgs);
 
 
 
@@ -132,7 +133,7 @@ CodeGenerator::CodeGenerator(string fileToParse)
 		}
 	}
 
-	//WriteFunction("main", main_content, "int");
+	WriteFunction("main", main_content,_main_content, "int");
 
 }
 
@@ -141,18 +142,18 @@ CodeGenerator::~CodeGenerator()
 {}
 
 
-void CodeGenerator::WriteInFile( string content)
+void CodeGenerator::WriteInFile( string content, string & target)
 {
 	/*myfile.open(fn, std::ios_base::app);
 	myfile << content;
 	myfile.close();*/
 
-	_content += content;
+	target += content;
 }
 
-void CodeGenerator::WriteIncludes(vector<MachineState> states)
+void CodeGenerator::WriteIncludes(vector<MachineState> states, string& target)
 {
-	WriteInFile("#pragma once \n#include <iostream> \n");
+	WriteInFile("#pragma once \n#include <iostream> \n",target);
 	bool hasDelay = false;
 	for (MachineState s : states)
 	{
@@ -162,58 +163,58 @@ void CodeGenerator::WriteIncludes(vector<MachineState> states)
 
 	if (hasDelay)
 	{
-		WriteInFile("#include <chrono> //c++ 11\n");
-		WriteInFile("#include <thread> //c++ 11\n");
-		WriteInFile("\nusing std::chrono::seconds;\n");
-		WriteInFile("using std::this_thread::sleep_for;\n");
+		WriteInFile("#include <chrono> //c++ 11\n",target);
+		WriteInFile("#include <thread> //c++ 11\n",target);
+		WriteInFile("\nusing std::chrono::seconds;\n",target);
+		WriteInFile("using std::this_thread::sleep_for;\n",target);
 
 		
 	}
 
-	WriteInFile("using  namespace std; \n\n");
+	WriteInFile("using  namespace std; \n\n",target);
 }
 
-void CodeGenerator::WriteFunction( string name, string body, string return_t , const vector<Argument> arguments)
+void CodeGenerator::WriteFunction( string name, string body,string& target, string return_t , const vector<Argument> arguments)
 {
-	WriteInFile("\n"+ return_t);
-	WriteInFile(" " + name + "(");
+	WriteInFile("\n"+ return_t,target);
+	WriteInFile(" " + name + "(",target);
 
 	if (arguments.size() > 0)
 	{
 		for (size_t i = 0; i < arguments.size() - 1; i++)
 		{
-			WriteInFile(arguments[i]._type + " " + arguments[i]._name + ", ");
+			WriteInFile(arguments[i]._type + " " + arguments[i]._name + ", ",target);
 		}
-		WriteInFile(arguments[arguments.size() - 1]._type + " " + arguments[arguments.size() - 1]._name);
+		WriteInFile(arguments[arguments.size() - 1]._type + " " + arguments[arguments.size() - 1]._name,target);
 
 	}
 	
-	WriteInFile(")\n{ \n");
-	WriteInFile( "\t" + body);
-	WriteInFile( "\n}\n\n");
+	WriteInFile(")\n{ \n",target);
+	WriteInFile( "\t" + body,target);
+	WriteInFile( "\n}\n\n",target);
 }
 
 
 
-void CodeGenerator::WriteEnum(string name, vector<string> values)
+void CodeGenerator::WriteEnum(string name,string& target, vector<string> values)
 {
-	WriteInFile( "enum State{ ");
+	WriteInFile( "enum State{ ", target);
 
 	for(unsigned i = 0; i< values.size() -1; ++i)
 	{
-		WriteInFile( values[i] + "= " + to_string(i)+", ");
+		WriteInFile( values[i] + "= " + to_string(i)+", ",target);
 	}
-	WriteInFile( values[values.size()-1] + "= " + to_string(values.size()-1));
+	WriteInFile( values[values.size()-1] + "= " + to_string(values.size()-1),target);
 
-	WriteInFile( "};\n\n");
+	WriteInFile( "};\n\n",target);
 }
 
-void CodeGenerator::WriteInitialization(string varname, string value, bool newline, string type)
+void CodeGenerator::WriteInitialization(string varname, string value, bool newline,string& target, string type)
 {
 	if(newline)
-		WriteInFile(type + " " + varname + " = " + value + ";\n");
+		WriteInFile(type + " " + varname + " = " + value + ";\n",target);
 	else
-		WriteInFile(type + " " + varname + " = " + value + ";");
+		WriteInFile(type + " " + varname + " = " + value + ";",target);
 
 }
 
