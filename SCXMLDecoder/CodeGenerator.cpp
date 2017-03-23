@@ -140,6 +140,7 @@ CodeGenerator::CodeGenerator(string fileToParse, string generated):_generated(ge
 	{
 		for (string next : s._nextList)
 		{
+			cout << "\nactivating " << next;
 			main_content += "activate(" + next + ");\n\t";
 		}
 	}

@@ -43,9 +43,10 @@ int main()
 	outputFileAdvanced.close();
 
 	string advanced_main_content = ACG._main_content;
+	cout << advanced_main_content;
 	ofstream outputFileMainAd;
 	outputFileMainAd.open("main_advanced.cpp");
-	outputFileMainAd << main_content;
+	outputFileMainAd << advanced_main_content;
 	outputFileMainAd.close();
 
 	//cout << advanced_content;
