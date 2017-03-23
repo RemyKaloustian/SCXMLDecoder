@@ -129,7 +129,7 @@ CodeGenerator::CodeGenerator(string fileToParse, string generated):_generated(ge
 	WriteInFile("#include <iostream> //c++ 11\n", _main_content);
 	WriteInFile("#include <chrono> //c++ 11\n", _main_content);
 	WriteInFile("#include <thread> //c++ 11\n", _main_content);
-	WriteInFile("include  \"" +_generated + "\" \n", _main_content);
+	WriteInFile("#include  \"" +_generated + "\" \n", _main_content);
 
 	WriteInFile("\nusing std::chrono::seconds;\n", _main_content);
 	WriteInFile("using std::this_thread::sleep_for;\n", _main_content);

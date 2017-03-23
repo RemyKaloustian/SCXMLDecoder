@@ -35,11 +35,18 @@ int main()
 
 	cout << "\n\n ----------------------------------------------------\n\n";
 
-	string advanced_content = CodeGenerator("AdvancedExample.scxml","generated_advanced")._content;
+	CodeGenerator ACG("AdvancedExample.scxml", "generated_advanced");
+	string advanced_content = ACG._content;
 	ofstream outputFileAdvanced;
 	outputFileAdvanced.open("generated_advanced.h");
 	outputFileAdvanced << advanced_content;
 	outputFileAdvanced.close();
+
+	string advanced_main_content = ACG._main_content;
+	ofstream outputFileMainAd;
+	outputFileMainAd.open("main_advanced.cpp");
+	outputFileMainAd << main_content;
+	outputFileMainAd.close();
 
 	//cout << advanced_content;
 
