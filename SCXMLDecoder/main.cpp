@@ -17,7 +17,7 @@ using namespace std;
 int main()
 {
 
-	CodeGenerator CG("BasicExample.scxml");
+	CodeGenerator CG("BasicExample.scxml", "generated_basic.h");
 	string basic_content = CG._content;
 	//cout << basic_content;
 
@@ -35,7 +35,7 @@ int main()
 
 	cout << "\n\n ----------------------------------------------------\n\n";
 
-	string advanced_content = CodeGenerator("AdvancedExample.scxml")._content;
+	string advanced_content = CodeGenerator("AdvancedExample.scxml","generated_advanced")._content;
 	ofstream outputFileAdvanced;
 	outputFileAdvanced.open("generated_advanced.h");
 	outputFileAdvanced << advanced_content;

@@ -20,8 +20,9 @@ public:
 
 	string _content;
 	string _main_content;
+	string _generated;
 	
-	CodeGenerator(string fileToParse);
+	CodeGenerator(string fileToParse, string generated);
 	~CodeGenerator();
 
 	void WriteInFile(string content, string & target);
