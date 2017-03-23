@@ -13,7 +13,7 @@
 using namespace rapidxml;
 using namespace std;
 
-CodeGenerator::CodeGenerator(string fileToParse, string generated):_generated(generated)
+CodeGenerator::CodeGenerator(string fileToParse, string generated, string main):_generated(generated), _main(main)
 {
 
 	
@@ -147,6 +147,9 @@ CodeGenerator::CodeGenerator(string fileToParse, string generated):_generated(ge
 
 	WriteFunction("main", main_content,_main_content, "int");
 
+	PutInFile(_content, _generated);
+	PutInFile(_main_content, _main);
+
 }
 
 
@@ -240,5 +243,14 @@ vector<string> CodeGenerator::get_states_names(vector<MachineState> states)
 	}
 
 	return names;
+}
+
+void CodeGenerator::PutInFile(string content, string fileName)
+{
+	ofstream outputFile;
+	outputFile.open(fileName);
+	outputFile << content;
+	outputFile.close();
+
 }
 

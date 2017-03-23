@@ -21,8 +21,9 @@ public:
 	string _content;
 	string _main_content;
 	string _generated;
+	string _main;
 	
-	CodeGenerator(string fileToParse, string generated);
+	CodeGenerator(string fileToParse, string generated, string main);
 	~CodeGenerator();
 
 	void WriteInFile(string content, string & target);
@@ -36,6 +37,8 @@ public:
 	void WriteInitialization(string varname, string value, bool newline,string& target, string type = "");
 	
 	vector<string> get_states_names(vector<MachineState> states);
+
+	void PutInFile(string content, string fileName);
 	
 
 };
