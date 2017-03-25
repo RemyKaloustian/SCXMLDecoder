@@ -12,19 +12,20 @@
 using std::string;
 using std::vector;
 
+//The class that generates the code 
 class CodeGenerator
 {
-
-
 public:
 
-	string _content;
-	string _main_content;
-	string _generated;
-	string _main;
+	string _content; //content of the generated file
+	string _main_content; //content of the main file
+	string _generated; //name of the generated file
+	string _main; //name of the main file
 	
 	CodeGenerator(string fileToParse, string generated, string main);
 	~CodeGenerator();
+
+	//The functions' goal seems pretty obvious to me
 
 	void WriteInFile(string content, string & target);
 
