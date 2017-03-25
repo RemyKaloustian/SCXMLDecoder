@@ -27,7 +27,7 @@ public:
 
 	//The functions' goal seems pretty obvious to me
 
-	void WriteInFile(string content, string & target);
+	void Write(string content, string & target);
 
 	void WriteIncludes(vector<MachineState>, string& target);
 	
