@@ -108,7 +108,17 @@ CodeGenerator::CodeGenerator(string fileToParse, string generated, string main):
 	for (unsigned i = 0; i < states.size(); ++i)
 	{
 		cout << "\nWritting function " << states[i]._name, _content;
-		WriteFunction("In" + states[i]._name, "cout<<\" " + states[i]._action + "\" << \"\\n\";\n",_content);
+		if (states[i]._delay != "")
+		{
+			WriteFunction("In" + states[i]._name, "sleep_for(seconds("+ states[i]._delay + "));\n  \tcout<<\" " + states[i]._action + "\" << \"\\n\";\n", _content);
+		}
+
+		else
+		{
+			WriteFunction("In" + states[i]._name, "cout<<\" " + states[i]._action + "\" << \"\\n\";\n", _content);
+
+		}
+		
 	}
 
 	WriteInitialization("currentState", initial, true,_content, "State");
@@ -159,10 +169,6 @@ CodeGenerator::~CodeGenerator()
 
 void CodeGenerator::WriteInFile( string content, string & target)
 {
-	/*myfile.open(fn, std::ios_base::app);
-	myfile << content;
-	myfile.close();*/
-
 	target += content;
 }
 

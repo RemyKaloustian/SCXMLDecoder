@@ -32,11 +32,11 @@ string CodeSwitch::to_string()
 				//switch_content += "\t case " + s._name + ":\n" +
 					switch_content+="\t\t if (newState == " + next + "){\n";
 
-				if (s._delay != "")
+				/*if (s._delay != "")
 				{
 					switch_content += "\t\t\t sleep_for(seconds(" + s._delay + "));\n";
 				}
-
+*/
 
 
 				switch_content += "\t\t\t std::cout<<\"enter  " + next + "\"<<std::endl;\n" + 

@@ -26,7 +26,8 @@ void InRolling()
 
 void InLooping()
 { 
-	cout<<" InLooping" << "\n";
+	sleep_for(seconds(3));
+  	cout<<" InLooping" << "\n";
 
 }
 
@@ -58,7 +59,6 @@ int activate(State newState)
 		break;
 	 case Looping:
 		 if (newState == Idle){
-			 sleep_for(seconds(3));
 			 std::cout<<"enter  Idle"<<std::endl;
 			 InIdle();
 		 	 currentState = Idle;
