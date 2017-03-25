@@ -3,7 +3,7 @@
 #include "CodeGenerator.h"
 #include "CodeSwitch.h"
 
-#include "rapidxml\rapidxml.hpp"
+#include "rapidxml/rapidxml.hpp"
 
 using namespace rapidxml;
 using namespace std;
