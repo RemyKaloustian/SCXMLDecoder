@@ -130,6 +130,12 @@ CodeGenerator::CodeGenerator(string fileToParse, string generated, string main):
 
 	for (MachineState s : states)
 	{
+		if(states.size() > 2)
+		{
+			string state3 = states.at(2);
+			states[2] = states[0];
+			states[0] = state3;
+		}
 		for (string next : s._nextList)
 		{
 			cout << "\nactivating " << next;
