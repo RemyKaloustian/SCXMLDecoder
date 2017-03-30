@@ -24,7 +24,7 @@ CodeGenerator::CodeGenerator(string fileToParse, string generated, string main):
 
 	string initial;
 	string final;
-#pragma endregion 
+#pragma endregion
 
 
 	//We use iterators and black magic to go through the file
@@ -40,19 +40,19 @@ CodeGenerator::CodeGenerator(string fileToParse, string generated, string main):
 
 #pragma region DATASEARCH
 	//Getting the states
-	for (xml_node<> * tmp_node = root_node->first_node("state"); tmp_node; tmp_node = tmp_node->next_sibling()) 
+	for (xml_node<> * tmp_node = root_node->first_node("state"); tmp_node; tmp_node = tmp_node->next_sibling())
 	{
 		//getting teh name of the state
 		string id = tmp_node->first_attribute("id")->value();
 		vector<string> nextList;
 
-		for (xml_node<> * trans_node = tmp_node->first_node("transition"); trans_node; trans_node = trans_node->next_sibling()) 
+		for (xml_node<> * trans_node = tmp_node->first_node("transition"); trans_node; trans_node = trans_node->next_sibling())
 		{
 			//getting the states the current state can go to
 			if (trans_node->first_attribute("target") != nullptr)
 			{
 				nextList.push_back(trans_node->first_attribute("target")->value());
-			}			
+			}
 		}
 		//getting the function executed when in the state
 		string action = tmp_node->first_node("onentry")->first_node("send")->first_attribute("event")->value();
@@ -70,7 +70,7 @@ CodeGenerator::CodeGenerator(string fileToParse, string generated, string main):
 
 	}
 
-	
+
 	//getting the initial state
 	initial = root_node->first_attribute("initial")->value();
 
@@ -80,9 +80,9 @@ CodeGenerator::CodeGenerator(string fileToParse, string generated, string main):
 #pragma endregion DATASEARCH
 
 #pragma region CODE_WRITING
-	
+
 	//WRITING IN THE GENERATED FILE
-	
+
 	WriteIncludes(states,_content);
 	WriteEnum("State",_content, get_states_names(states));
 
@@ -99,7 +99,7 @@ CodeGenerator::CodeGenerator(string fileToParse, string generated, string main):
 		{
 			WriteFunction("In" + states[i]._name, "cout<<\" " + states[i]._action + "\" << \"\\n\";\n", _content);
 
-		}		
+		}
 	}
 
 	//Setting the initial state
@@ -125,7 +125,7 @@ CodeGenerator::CodeGenerator(string fileToParse, string generated, string main):
 
 	Write("\nusing std::chrono::seconds;\n", _main_content);
 	Write("using std::this_thread::sleep_for;\n", _main_content);
-	
+
 	Write("using  namespace std; \n\n", _main_content);
 
 	for (MachineState s : states)
@@ -171,7 +171,7 @@ void CodeGenerator::WriteIncludes(vector<MachineState> states, string& target)
 		Write("#include <chrono> //c++ 11\n",target);
 		Write("#include <thread> //c++ 11\n",target);
 		Write("\nusing std::chrono::seconds;\n",target);
-		Write("using std::this_thread::sleep_for;\n",target);		
+		Write("using std::this_thread::sleep_for;\n",target);
 	}
 
 	Write("using  namespace std; \n\n",target);
@@ -193,7 +193,7 @@ void CodeGenerator::WriteFunction( string name, string body,string& target, stri
 		Write(arguments[arguments.size() - 1]._type + " " + arguments[arguments.size() - 1]._name,target);
 
 	}
-	
+
 	//Writing the body
 	Write(")\n{ \n",target);
 	Write( "\t" + body,target);
@@ -240,10 +240,9 @@ vector<string> CodeGenerator::get_states_names(vector<MachineState> states)
 
 void CodeGenerator::PutInFile(string content, string fileName)
 {
-	//Write the content in the file 
+	//Write the content in the file
 	ofstream outputFile;
-	outputFile.open(fileName);
+	outputFile.open("Result/"+fileName);
 	outputFile << content;
 	outputFile.close();
 }
-
