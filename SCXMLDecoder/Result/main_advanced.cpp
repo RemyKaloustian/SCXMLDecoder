@@ -10,10 +10,15 @@ using  namespace std;
 
 int main()
 { 
+	activate(Idle);
 	activate(Rolling);
 	activate(Looping);
 	activate(Idle);
+	activate(Rolling);
+	activate(Looping);
 	activate(Idle);
+	activate(Rolling);
+	activate(Looping);
 	
 }
 
