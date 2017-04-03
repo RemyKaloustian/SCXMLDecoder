@@ -268,10 +268,8 @@ void CodeGenerator::WriteCompileScript()
 	/*g++ - o run_basic main_basic.cpp - std = c++0x
 		. / run_basic*/
 
-	script += "g++ -o " + _program_name + " " + _main + "-std=c++0x\n";
+	script += "g++ -o " + _program_name + " " + _main + "  -std=c++0x\n";
 	script += "./" + _program_name;
 
-	PutInFile(script, "compile_" + _program_name);
+	PutInFile(script, "compile_" + _program_name + ".sh");
 }
-
-
