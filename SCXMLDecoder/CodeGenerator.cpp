@@ -8,7 +8,7 @@
 using namespace rapidxml;
 using namespace std;
 
-CodeGenerator::CodeGenerator(string fileToParse, string generated, string main):_generated(generated), _main(main)
+CodeGenerator::CodeGenerator(string fileToParse, string generated, string main, string program_name):_generated(generated), _main(main),_program_name(program_name)
 {
 
 #pragma region PARSING_VARIABLES
@@ -155,6 +155,8 @@ CodeGenerator::CodeGenerator(string fileToParse, string generated, string main):
 	PutInFile(_content, _generated);
 	PutInFile(_main_content, _main);
 
+	WriteCompileScript();
+
 #pragma endregion CODE_WRITING
 }
 
@@ -258,3 +260,18 @@ void CodeGenerator::PutInFile(string content, string fileName)
 	outputFile << content;
 	outputFile.close();
 }
+
+void CodeGenerator::WriteCompileScript()
+{
+	string script = "#!/bin/sh \n\n";
+
+	/*g++ - o run_basic main_basic.cpp - std = c++0x
+		. / run_basic*/
+
+	script += "g++ -o " + _program_name + " " + _main + "-std=c++0x\n";
+	script += "./" + _program_name;
+
+	PutInFile(script, "compile_" + _program_name);
+}
+
+

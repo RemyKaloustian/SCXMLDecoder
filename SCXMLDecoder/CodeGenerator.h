@@ -21,8 +21,10 @@ public:
 	string _main_content; //content of the main file
 	string _generated; //name of the generated file
 	string _main; //name of the main file
+
+	string _program_name;
 	
-	CodeGenerator(string fileToParse, string generated, string main);
+	CodeGenerator(string fileToParse, string generated, string main, string programe_name);
 	~CodeGenerator();
 
 	//The functions' goal seems pretty obvious to me
@@ -40,6 +42,8 @@ public:
 	vector<string> get_states_names(vector<MachineState> states);
 
 	void PutInFile(string content, string fileName);
+
+	void WriteCompileScript();
 	
 
 };
