@@ -70,7 +70,6 @@ CodeGenerator::CodeGenerator(string fileToParse, string generated, string main, 
 
 	}
 
-
 	//getting the initial state
 	initial = root_node->first_attribute("initial")->value();
 
@@ -92,7 +91,7 @@ CodeGenerator::CodeGenerator(string fileToParse, string generated, string main, 
 		cout << "\nWritting function " << states[i]._name, _content;
 		if (states[i]._delay != "")
 		{
-			WriteFunction("In" + states[i]._name, "sleep_for(seconds("+ states[i]._delay + "));\n  \tcout<<\" " + states[i]._action + "\" << \"\\n\";\n", _content);
+			WriteFunction("In" + states[i]._name, "\tcout<<\" " + states[i]._action + ", delaying for " + states[i]._delay + "seconds << \"\\n\";\n sleep_for(seconds("+ states[i]._delay + "));\n  ", _content);
 		}
 
 		else
