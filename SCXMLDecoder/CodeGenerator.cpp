@@ -90,7 +90,6 @@ CodeGenerator::CodeGenerator(string fileToParse, string generated, string main, 
 	//Writing the transition function for each state
 	for (unsigned i = 0; i < states.size(); ++i)
 	{
-	//	cout << "\nWritting function " << states[i]._name, _content;
 		if (states[i]._delay != "")
 		{
 			WriteFunction("In" + states[i]._name, "\tcout<<\" " + states[i]._action + ", delaying for " + states[i]._delay + " seconds\" << \"\\n\";\n\t  sleep_for(seconds("+ states[i]._delay + "));\n  ", _content);
