@@ -127,32 +127,29 @@ CodeGenerator::CodeGenerator(string fileToParse, string generated, string main, 
 
 	Write("using  namespace std; \n\n", _main_content);
 
-	/*for (MachineState s : states)
-	{*/
-		/*if(states.size() > 2)
-		{
-			string state3 = states[2];
-			states[2] = states[0];
-			states[0] = state3;
-		}
-		for (string next : s._nextList)
-		{
-			cout << "\nactivating " << next;
-			main_content += "activate(" + next + ");\n\t";
-		}*/
+	cout << "It seems everything is OK !\n";
 
+	//Writing the activate() in main 
 		for(MachineState s  : states)
 		{
-			//main_content += "activate(" + s._name + ");\n\t";
 			if (s._name != "Idle")
 			{
 				main_content += "activate(Idle);\n\t";
 				main_content += "activate(" + s._name + ");\n\t";
-
 			}
 
-		/*}*/
-	}
+			//Displaying the states
+			cout << "\nState " << s._name << " : \n";
+			cout << "\t function = " << s._action << "\n";
+			if (s._delay != "")cout << "\t delay = " << s._delay;
+			cout << "\t targets = ";
+			for (string next : s._nextList)
+			{
+				cout << next << ", ";
+			}
+		}
+
+
 
 	WriteFunction("main", main_content,_main_content, "int");
 
