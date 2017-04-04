@@ -128,8 +128,8 @@ CodeGenerator::CodeGenerator(string fileToParse, string generated, string main, 
 
 	Write("using  namespace std; \n\n", _main_content);
 
-	for (MachineState s : states)
-	{
+	/*for (MachineState s : states)
+	{*/
 		/*if(states.size() > 2)
 		{
 			string state3 = states[2];
@@ -144,9 +144,15 @@ CodeGenerator::CodeGenerator(string fileToParse, string generated, string main, 
 
 		for(MachineState s  : states)
 		{
-			main_content += "activate(" + s._name + ");\n\t";
+			//main_content += "activate(" + s._name + ");\n\t";
+			if (s._name != "Idle")
+			{
+				main_content += "activate(Idle);\n\t";
+				main_content += "activate(" + s._name + ");\n\t";
 
-		}
+			}
+
+		/*}*/
 	}
 
 	WriteFunction("main", main_content,_main_content, "int");
